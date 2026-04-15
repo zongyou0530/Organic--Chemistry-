@@ -40,35 +40,46 @@ body {
   line-height: 1.6;
 }
 
+/* ── HEADER ── */
 .hero {
   background: linear-gradient(135deg, #0d1525 0%, #1a2a4a 50%, #0d1525 100%);
   border-bottom: 1px solid var(--border);
-  padding: 60px 24px 40px;
+  padding: 40px 24px 32px;
   text-align: center;
   position: relative;
+  overflow: hidden;
 }
-
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(61,142,240,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
 .hero-tag {
   display: inline-block;
   background: rgba(61,142,240,0.15);
   border: 1px solid rgba(61,142,240,0.3);
   color: var(--blue-l);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 3px;
   padding: 4px 14px;
   border-radius: 20px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
-
 .hero h1 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 900;
   background: linear-gradient(135deg, var(--blue-l), var(--teal), var(--amber-l));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 8px;
 }
+.hero p { color: var(--gray); font-size: 0.85rem; }
 
+/* ── NAV TABS ── */
 .nav-wrap {
   background: var(--bg2);
   border-bottom: 1px solid var(--border);
@@ -76,38 +87,70 @@ body {
   top: 0;
   z-index: 100;
   overflow-x: auto;
+  scrollbar-width: none;
 }
-
-.nav { display: flex; padding: 0 16px; }
-
+.nav-wrap::-webkit-scrollbar { display: none; }
+.nav { display: flex; gap: 0; min-width: max-content; padding: 0 16px; }
 .nav-btn {
   background: none; border: none; color: var(--gray);
-  padding: 16px 20px; cursor: pointer; white-space: nowrap;
-  font-size: 0.9rem; transition: 0.3s;
+  font-family: 'Noto Sans TC', sans-serif; font-size: 0.82rem;
+  padding: 14px 18px; cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all 0.2s; white-space: nowrap;
 }
+.nav-btn:hover { color: var(--white); }
+.nav-btn.active { color: var(--blue-l); border-bottom-color: var(--blue); }
 
-.nav-btn.active { color: var(--blue-l); border-bottom: 2px solid var(--blue); }
-
-.content { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
-
+/* ── CONTENT ── */
+.content { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
 .section { display: none; }
 .section.active { display: block; }
 
-.card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px;
-  margin-bottom: 20px;
+.sec-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.sec-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
 }
+.sec-header h2 { font-size: 1.3rem; font-weight: 700; }
 
-table {
-  width: 100%; border-collapse: collapse; margin-top: 15px;
-  background: var(--bg3); border-radius: 8px; overflow: hidden;
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+.card-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+.tbl-wrap { overflow-x: auto; margin: 8px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+th { background: var(--navy); padding: 9px 12px; text-align: left; color: var(--blue-l); border-bottom: 1px solid var(--border); }
+td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--gray-l); }
+
+.rxn {
+  background: var(--bg3); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0;
+  padding: 10px 14px; margin: 6px 0; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem; color: var(--blue-l); line-height: 1.7;
 }
+.rxn.amber { border-left-color: var(--amber); color: var(--amber-l); }
+.note { border-radius: 8px; padding: 10px 14px; font-size: 0.8rem; margin: 10px 0; }
+.note.tip { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: var(--amber-l); }
+.note.info { background: rgba(61,142,240,0.1); border: 1px solid rgba(61,142,240,0.3); color: var(--blue-l); }
 
-th { background: var(--navy); color: var(--blue-l); padding: 12px; text-align: left; }
-td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--gray-l); }
+.flow { display: flex; flex-direction: column; gap: 0; margin: 12px 0; }
+.flow-step { display: flex; gap: 14px; position: relative; }
+.flow-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; z-index: 1; margin-top: 6px;}
+.flow-body { flex: 1; padding: 10px 14px; border-radius: 10px; margin-bottom: 10px; }
+
+.collapse-btn {
+  background: var(--bg3); border: 1px solid var(--border); color: var(--gray-l);
+  width: 100%; text-align: left; padding: 12px 16px; border-radius: 8px; cursor: pointer;
+  display: flex; justify-content: space-between; margin-bottom: 6px;
+}
+.collapse-body { display: none; background: var(--bg3); border: 1px solid var(--border); border-top: none; padding: 14px 16px; margin-bottom: 10px; border-radius: 0 0 8px 8px; }
+.collapse-body.open { display: block; }
+
+.quiz-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 12px; }
+.quiz-opt { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; width: 100%; text-align: left; cursor: pointer; margin-bottom: 5px; color: var(--white); }
+.quiz-opt.correct { background: rgba(52,211,153,0.15); border-color: var(--green); color: var(--green); }
+.quiz-opt.wrong { background: rgba(248,113,113,0.1); border-color: var(--red); color: var(--red); }
+.quiz-explain { display: none; margin-top: 10px; padding: 10px 14px; border-left: 3px solid var(--blue); color: var(--blue-l); font-size: 0.78rem; }
+.quiz-explain.show { display: block; }
 </style>
 </head>
 <body>
@@ -122,21 +165,56 @@ td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--gray-l)
   <div class="nav">
     <button class="nav-btn active" onclick="switchTab(0)">🏠 總覽</button>
     <button class="nav-btn" onclick="switchTab(1)">🔗 烴類</button>
-    <button class="nav-btn" onclick="switchTab(2)">🧪 官能基</button>
+    <button class="nav-btn" onclick="switchTab(2)">🍶 醇・酚・醚</button>
+    <button class="nav-btn" onclick="switchTab(3)">🧪 醛・酮</button>
+    <button class="nav-btn" onclick="switchTab(4)">🍋 羧酸・酯</button>
+    <button class="nav-btn" onclick="switchTab(5)">🔬 胺・醯胺</button>
+    <button class="nav-btn" onclick="switchTab(6)">🔍 檢驗總表</button>
+    <button class="nav-btn" onclick="switchTab(7)">🧬 聚合物</button>
+    <button class="nav-btn" onclick="switchTab(8)">✏️ 練習題</button>
   </div>
 </div>
 
 <div class="content">
   <div class="section active" id="tab0">
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(61,142,240,0.15)">🏠</div>
+      <div><h2>官能基一覽 & 轉換地圖</h2></div>
+    </div>
     <div class="card">
-      <h2 style="color:var(--teal); margin-bottom:15px;">官能基一覽 & 轉換地圖</h2>
-      <table>
-        <tr><th>類別</th><th>官能基</th><th>通式</th><th>混成</th></tr>
-        <tr><td>烷</td><td>無</td><td>CnH2n+2</td><td>sp3</td></tr>
-        <tr><td>烯</td><td>C=C</td><td>CnH2n</td><td>sp2</td></tr>
-        <tr><td>炔</td><td>C≡C</td><td>CnH2n-2</td><td>sp</td></tr>
-        <tr><td>醇</td><td>-OH</td><td>ROH</td><td>sp3</td></tr>
-      </table>
+      <div class="card-title"><span class="dot" style="background:var(--blue)"></span>官能基對照表</div>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>類別</th><th>官能基</th><th>通式</th><th>混成</th></tr>
+          <tr><td>烷</td><td>無</td><td>CₙH₂ₙ₊₂</td><td>sp³</td></tr>
+          <tr><td>烯</td><td>C=C</td><td>CₙH₂ₙ</td><td>sp²</td></tr>
+          <tr><td>醇</td><td>-OH</td><td>ROH</td><td>sp³</td></tr>
+          <tr><td>羧酸</td><td>-COOH</td><td>RCOOH</td><td>sp²</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:var(--amber)"></span>酸性強弱順序 ⭐</div>
+      <div class="rxn amber">HCl > HCOOH > CH₃COOH > H₂CO₃ > ArOH(酚) > H₂O > ROH(醇)</div>
+    </div>
+  </div>
+
+  <div class="section" id="tab1">
+    <div class="sec-header"><div class="sec-icon" style="background:rgba(0,196,167,0.15)">🔗</div><div><h2>烴類</h2></div></div>
+    <button class="collapse-btn" onclick="toggleCollapse(this)">⬡ 烯類 反應 <span>▾</span></button>
+    <div class="collapse-body">
+      <div class="rxn">馬可尼可夫規則：H 加到含 H 多的碳上。</div>
+    </div>
+  </div>
+
+  <div class="section" id="tab8">
+    <div class="quiz-card">
+      <div class="quiz-q">Q1. 下列哪種試劑可以區分 乙醛 和 丙酮？</div>
+      <div class="quiz-opts">
+        <button class="quiz-opt" onclick="answer(this, true, 'q1')">C. 斐林試劑</button>
+        <button class="quiz-opt" onclick="answer(this, false, 'q1')">D. Na 金屬</button>
+      </div>
+      <div class="quiz-explain" id="q1">乙醛含醛基，可與斐林試劑反應產生磚紅色沉澱。</div>
     </div>
   </div>
 </div>
@@ -145,6 +223,16 @@ td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--gray-l)
 function switchTab(i) {
   document.querySelectorAll('.section').forEach((s,j) => s.classList.toggle('active', j === i));
   document.querySelectorAll('.nav-btn').forEach((b,j) => b.classList.toggle('active', j === i));
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function toggleCollapse(btn) {
+  const body = btn.nextElementSibling;
+  body.classList.toggle('open');
+  btn.querySelector('span').textContent = body.classList.contains('open') ? '▴' : '▾';
+}
+function answer(btn, correct, qid) {
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  document.getElementById(qid).classList.add('show');
 }
 </script>
 </body>
